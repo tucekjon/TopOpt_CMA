@@ -1,4 +1,4 @@
-# TopOpt_CMA
+# Topology optimization with Characteristic Modes Analysis
 Implementation of the density-based topology optimization in method of moments modelling in conjuction with Characteristic mode analysis. The first characteristic number of a rectangular plate is manipulated
 
 ## Implementation notes
