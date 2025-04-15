@@ -13,13 +13,13 @@ The objective is to minimize fitness function $f=\mathrm{Re}(\lambda_1)^2 + \nu 
 Optimization parameters can be set at the beginning of START.m script, which serves as a starting script and runs automatically after pressing "F5". No extra code is required. In particular parameter $\nu$ has a great impact on the optimization and performance after postprocessing, see the convergence plot and obtained designs below.
 
 <p align="center">
-  <img src="https://github.com/tucekjon/Topology_optimization_minQ/blob/main/TopOpt-results-convergence.png?raw=true" width="450" />
+  <img src="https://github.com/tucekjon/TopOpt_CMA/blob/main/TopOpt-CMA-Convergence.png?raw=true" width="450" />
 </p>
-<em>An example of the convergence plot of Q-factors normalized to the fundamental bound, where dashed vertical lines represent iterations in which the sharpness of the projection filter is doubled.</em>
+<em>An example of the convergence plot of fitness fuction, where dashed vertical lines represent iterations in which the sharpness of the projection filter is doubled.</em>
 
 <p align="center">
-  <img src="https://github.com/tucekjon/Topology_optimization_minQ/blob/main/TopOpt-results-optimizedDesign.png?raw=true" width="400" />
-  <img src="https://github.com/tucekjon/Topology_optimization_minQ/blob/main/TopOpt-results-binaryDesign.png?raw=true" width="400" /> 
+  <img src="https://github.com/tucekjon/TopOpt_CMA/blob/main/TopOpt-CMA-OptimizedDesign.png?raw=true" width="400" />
+  <img src="https://github.com/tucekjon/TopOpt_CMA/blob/main/TopOpt-CMA-BinaryDesign.png?raw=true" width="400" /> 
 </p>
 <em>An example of the  optimized structure with residual gray elements (left). An example of the thresholded binary structure (right).</em>
 
