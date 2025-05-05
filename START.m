@@ -30,7 +30,7 @@ clear;
 close all;
 
 % Precalculated matrices are loaded (they can be changed in AToM [1]):
-load('operators_plate_TopOpt.mat');
+load('operators_plate_ka0p7.mat');
 
 % Auxiliarly matrices
 OP.Z0    = Z0;      % vacuum part of the impedance matrix 
@@ -41,6 +41,7 @@ OP.BF2T  = BF2T;    % Connectivity matrix between triangles and basis functions
 %% Fitness function settings
 
 topOptSettings.nu = 0.1; % Parameter weighting the imaginary part of characteristic number
+% Try nu = 1, nu = 0 and compare results.
 
 % fitness function definition f = Re{Lambda}^2 + nu * Im{Lambda}^2
 topOptSettings.fitness = @ff_minLam;
@@ -49,15 +50,16 @@ topOptSettings.fitness = @ff_minLam;
 topOptSettings.interFun = @interFun;                  % Define interpolation function
 topOptSettings.resistivityLimits = [1e5 0.01];        % Boundary resistivity values for vacuum (rho=0) and metal (rho=1)
 topOptSettings.rmin = 0.15 * OP.Mesh.normDistanceA;   % Density filter radius
+% The density filter is made larger to be more effective on a coarser mesh
 
 % Projection filter is used in the continuation scheme
 topOptSettings.beta = 1;       % Initial sharpness of the projection filter H
 topOptSettings.etaVec  = 0.5;  % Level of the projection filter H
 topOptSettings.betaIter = 75;  % Projection filter is updated every 75 iterations
-topOptSettings.betaMax = 16;   % Maximal allowed sharpness of the projection filter H
+topOptSettings.betaMax = 32;   % Maximal allowed sharpness of the projection filter H
 
 topOptSettings.change = 0.01;  % Maximal change in rho between two consecutive runs
-topOptSettings.maxIter = 5 * topOptSettings.betaIter;   % Maximal number of iterations
+topOptSettings.maxIter = 6 * topOptSettings.betaIter;   % Maximal number of iterations
 
 % Region near the feeder is fixed
 topOptSettings.protTRs = [];    % Protected material (rho = 1)
@@ -95,14 +97,14 @@ xPhys = projectionFilter(xTilde, betaPostProcess, topOptSettings.etaVec); % phys
 
 plotDesign(OP.Mesh,xPhys);
 [~,~,LamGray] = topOptSettings.fitness(OP, topOptSettings, xPhys);
-title(['\nu = ' num2str(topOptSettings.nu,1) ', \lambda_1 = ' num2str(real(LamGray),2) '-j' num2str(-imag(LamGray),3)])
+title(['\nu = ' num2str(topOptSettings.nu,1) ', \lambda_1 = ' sprintf('%1.3f',real(LamGray)) '-j' sprintf('%1.3f',-imag(LamGray))])
 
 % Hard thresholding of the gray design
 xPhysBW = projectionFilter(xTilde, 150000, 0.5);
 
 % Analyze BW design with physically accurate resistivites of vacuum and PEC
-topOptSettings.resistivityLimits = [1e8 0.01];
+topOptSettings.resistivityLimits = [1e12 1e-8]; % Numerical values
 [~,~,LamBW] = topOptSettings.fitness(OP, topOptSettings, xPhysBW);
 
 plotDesign(OP.Mesh,xPhysBW); % plot structure
-title(['\nu = ' num2str(topOptSettings.nu,1) ', \lambda_1 = ' num2str(real(LamBW),2) '-j' num2str(-imag(LamBW),3)])
+title(['\nu = ' num2str(topOptSettings.nu,1) ', \lambda_1 = ' sprintf('%1.3f',real(LamBW)) '-j' sprintf('%1.3f',-imag(LamBW))])

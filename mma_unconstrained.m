@@ -3,7 +3,7 @@ function [xmma, xold1, xold2, low, upp, AsymInc, AsymDecr, change] = ...
                       low, upp, iter, AsymInc, AsymDecr, xmin, xmax)  
 
 
-move = 0.2;
+move = 0.25;
 Osc = 0.2; 
 AsymInit = 0.5;
 
