@@ -29,6 +29,6 @@ Optimization parameters can be set at the beginning of START.m script, which ser
      pp. 1-13, 2023.
 
 [2] Tucek, J.,Capek, M., Jelinek, L.: Density-Based Topology Optimization for Characteristic Modes Manipulation, 
-     pp. 1-13, 2023.
+     pp. 1-6, 2025.
      
 [3] Antenna Toolbox for MATLAB (AToM), [on-line]: www.antennatoolbox.com, (2022)
